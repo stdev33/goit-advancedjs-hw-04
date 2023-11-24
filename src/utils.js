@@ -1,32 +1,37 @@
-// import iziToast from 'izitoast';
-// import 'izitoast/dist/css/iziToast.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
-function displaySuccess(title, message) {
-  // iziToast.success({
-  //   title,
-  //   message,
-  // });
+const isWhitespacesOrEmpty = input => {
+  const regexPattern = /[^ \t\r\n\v\f]/;
+  return !regexPattern.test(input);
+};
+
+function displaySuccess(message, title = '') {
+  iziToast.success({
+    title,
+    message,
+  });
 }
 
-function displayError(title, message) {
-  // iziToast.error({
-  //   title,
-  //   message,
-  // });
+function displayError(message, title = '') {
+  iziToast.error({
+    title,
+    message,
+  });
 }
 
-function displayServerError(error) {
-  if (error.response) {
-    displayError(
-      '❌',
-      error.response.statusText ||
-        `Server response status ${error.response.status}`
-    );
-  } else if (error.request) {
-    displayError('❌', `Server not responds`);
-  } else {
-    displayError('❌', `Error: ${error.message}`);
-  }
+function displayWarning(message, title = '') {
+  iziToast.warning({
+    title,
+    message,
+  });
+}
+
+function displayInfo(message, title = '') {
+  iziToast.info({
+    title,
+    message,
+  });
 }
 
 class HideableElement {
@@ -49,4 +54,11 @@ class HideableElement {
   }
 }
 
-export { displaySuccess, displayError, displayServerError, HideableElement };
+export {
+  isWhitespacesOrEmpty,
+  displaySuccess,
+  displayError,
+  displayWarning,
+  displayInfo,
+  HideableElement,
+};
