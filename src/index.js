@@ -38,7 +38,9 @@ refs.loadMoreBtn.element.addEventListener('click', () =>
 );
 
 const observer = new MutationObserver(() => {
-  setTimeout(scrollToEndSmooth, 700);
+  if (currentPage > 1) {
+    setTimeout(scrollGallerySmooth, 700);
+  }
 });
 
 const mutationObserverConfig = { childList: true };
@@ -144,10 +146,13 @@ function renderImages(images) {
   refs.gallery.insertAdjacentHTML('beforeend', markup);
 }
 
-function scrollToEndSmooth() {
-  refs.pageEnd.scrollIntoView({
+function scrollGallerySmooth() {
+  const { height: cardHeight } =
+    refs.gallery.firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
     behavior: 'smooth',
-    block: 'end',
   });
 }
 
